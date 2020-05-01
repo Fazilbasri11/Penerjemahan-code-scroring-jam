@@ -31,7 +31,7 @@ int main(void)
             case 'T': case 'U': case 'V':
                    printf("8");
                    break;
-            case 'W': case 'X': case 'Y':
+            case 'W': case 'X': case 'Y': case 'Z':
                    printf("9");
                    break;
             default:
