@@ -11,7 +11,7 @@ int main(void)
     while ((input = getchar()) != '\n') {
 
         switch (toupper(input)) {
-            case 'A': case 'B': case 'C':
+            case 'A': case 'B': case 'C': case '4':
                    printf("2");
                    break;
             case 'D': case 'E': case 'F':
