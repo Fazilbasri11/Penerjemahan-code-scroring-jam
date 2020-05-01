@@ -5,7 +5,7 @@ int main(void)
 {
     char input;
 
-    printf("\nEnter phone number: ");
+    printf("\nMasukkan string: ");
   
     while ((input = getchar()) != '\n') {
 
@@ -42,4 +42,4 @@ int main(void)
     printf("\n\n");
 
     return 0;
-}
+} //copas saja kode ke sini https://www.onlinegdb.com/online_c_compiler dan (run online)
