@@ -1,3 +1,4 @@
+//tombol edit code ada di kanan (pensil)
 #include <stdio.h>
 #include <ctype.h>    //akses tuperw
 
