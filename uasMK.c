@@ -323,7 +323,7 @@ void tampilkanDataHasilProses() {
 
             exit(1);
         }
-        // untuk mengecek apakah data yang tersimpan didalam file .bin masih kosong
+            // untuk mengecek apakah data yang tersimpan didalam file .bin masih kosong
         else if(ukuran_file == 0) {
             fclose(f);
 
@@ -333,7 +333,7 @@ void tampilkanDataHasilProses() {
 
             prosesTextFromInputToOutput();
         } else {
-            struct DATA data;
+            struct DATA data[100];
 
             int n; // banyak data yang akan ditampilkan
 
@@ -342,25 +342,59 @@ void tampilkanDataHasilProses() {
                 scanf("%d", &n);
             } while(n < 1 || n > 25);
 
-            int i = 0;
+            int idxData = 0;
             for(;;){
-                fread(&data, sizeof(data), 1, f);
-
+                fread(&data[idxData], sizeof(data[idxData]), 1, f);
+                idxData++;
                 if(feof(f))
-                    break
-;
-                int j;
-                for(j = 0; j < data.jumlahKata; j++) {
-                    printf("%.2f, %d, %d, %s\n", data.skor, data.jumlahKata, data.panjangKata[j], data.kata[j]);
-                    i++;
-                    if(i == n)
-                        goto beres;
+                    break;
+
+            }
+            fclose(f);
+
+            /*
+             * PROSES PENGURUTAN DATA
+             */
+            int i = 0;
+            for(; i < idxData; i++) {
+                for(int j = 0; j < idxData-1; j++) {
+                    if(data[j].skor < data[j+1].skor) {
+                        struct DATA temp;
+                        temp = data[j];
+                        data[j] = data[j+1];
+                        data[j+1] = temp;
+
+                    }
                 }
             }
+
+            /*
+             * PROSES MENAMPILKAN DATA
+             */
+            // menampilkan data setelah diurutkan
+            printf("DATA SETELAH DIURUTKAN\n");
+            int pembanding = 0;
+            for(i = 0; i < n; i++) {
+
+                //if(data[i].jumlahKata > 1) {
+                printf("%.2f %d ", data[i].skor, data[i].jumlahKata);
+                int j;
+                for(j = 0; j < data[i].jumlahKata; j++) {
+                    printf("%d %s ", data[i].panjangKata[j], data[i].kata[j]);
+                    pembanding++;
+                    if(pembanding == n)
+                        goto beres;
+                }
+                //}
+                printf("\n");
+            }
+
             beres:
-            fclose(f);
+            fflush(stdin);
+            getchar();
         }
     }
+
 }
 
 int main() {
